@@ -8,19 +8,18 @@ from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
 class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
-        print('scasa')
         uic.loadUi('main.ui', self)
-        self.con = sqlite3.connect('coffee.sqlite')
-        self.cursor = self.con.cursor()
-        self.title = ['ID', 'Название', 'название сорта', 'степень обжарки', 'молотый/в зернах',
-                      'описание вкуса', 'цена', 'объем упаковки']
-        self.show_btn.clicked.connect(self.show)
+        self.show_btn.clicked.connect(self.showtable)
 
-    def show(self):
-        self.tableWidget.setColumnCount(len(self.title))
-        self.tableWidget.setHorizontalHeaderLabels(self.title)
+    def showtable(self):
+        con = sqlite3.connect('coffee.sqlite')
+        cursor = con.cursor()
+        title = ['ID', 'Название', 'название сорта', 'степень обжарки', 'молотый/в зернах',
+                 'описание вкуса', 'цена', 'объем упаковки']
+        self.tableWidget.setColumnCount(len(title))
+        self.tableWidget.setHorizontalHeaderLabels(title)
         self.tableWidget.setRowCount(0)
-        res = self.cursor.execute("""SELECT * FROM coffee""").fetchall()
+        res = cursor.execute("""SELECT * FROM coffee""").fetchall()
         for i, row in enumerate(res):
             self.tableWidget.setRowCount(
                 self.tableWidget.rowCount() + 1)
