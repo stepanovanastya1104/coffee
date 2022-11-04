@@ -14,7 +14,7 @@ class MyWidget(QWidget):
     def showtable(self):
         con = sqlite3.connect('coffee.sqlite')
         cursor = con.cursor()
-        title = ['ID', 'Название', 'название сорта', 'степень обжарки', 'молотый/в зернах',
+        title = ['ID', 'название сорта', 'степень обжарки', 'молотый/в зернах',
                  'описание вкуса', 'цена', 'объем упаковки']
         self.tableWidget.setColumnCount(len(title))
         self.tableWidget.setHorizontalHeaderLabels(title)
